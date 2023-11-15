@@ -15,6 +15,7 @@ local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
 -- Modules
 local Visual = require(script.Visual)
 local Projectile = require(script.Projectile)
+local Ammo = require(script.Ammo)
 
 -- Fun Functions!
 local function Equip(player: Player)
@@ -40,10 +41,19 @@ local function Unequip(player: Player)
     return true
 end
 
+function class.PlayerAdded(player: Player)
+    Ammo.PlayerAdded(player)
+end
+
+function class.PlayerRemoving(player: Player)
+    Ammo.PlayerRemoving(player)
+end
+
 function class.Setup()
     EquipBowEvent.OnServerInvoke = Equip
     UnequipBowEvent.OnServerInvoke = Unequip
     FireEvent.OnServerEvent:Connect(Projectile.Fire)
+    Ammo.Setup()
 end
 
 

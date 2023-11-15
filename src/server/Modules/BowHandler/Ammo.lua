@@ -1,6 +1,12 @@
 local class = {}
 
 local Players = game.Players
+local ReplicatedStorage = game.ReplicatedStorage
+local Remotes = ReplicatedStorage.Remotes
+
+local BowRemotes = Remotes.BowRemotes
+
+local ToggleArrow: RemoteFunction = BowRemotes.ToggleArrow
 
 -- Ammo Data
 local Data = {}
@@ -19,7 +25,7 @@ function class.PlayerAdded(player: Player)
     }
 end
 
-function class.PlayerRemoved(player: Player)
+function class.PlayerRemoving(player: Player)
    if not Data[player] then return end 
    Data[player] = nil
 end
@@ -52,7 +58,17 @@ function class.Fire(player: Player)
     end
 end
 
-function class.Tick()
+function class.ToggleArrow(player: Player)
+    local data = Data[player]
+    if not data then warn("no data") return false end
+
+    data.AbilityArrowToggle = not data.AbilityArrowToggle
+    return data.AbilityArrowToggle
+end
+
+function class.Setup()
+    ToggleArrow.OnServerInvoke = class.ToggleArrow
+    
     while task.wait(3) do
         for player, data in pairs(Data) do
             data.AbilityArrows += 1

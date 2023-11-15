@@ -14,6 +14,11 @@ Gizmo.Init()
 -- Bow Remotes
 local BowRemotes = Remotes:WaitForChild("BowRemotes")
 local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
+local ToggleArrowEvent: RemoteFunction = BowRemotes:WaitForChild("ToggleArrow")
+
+-- Binds
+local ToggleArrowBind = Enum.KeyCode.Q
+
 
 -- UI STuff
 local MouseConnection = {}
@@ -21,6 +26,7 @@ local Mouse = Player:GetMouse()
 
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local Main = PlayerGui:WaitForChild("Main")
+local ArrowType: TextLabel = Main:WaitForChild("ArrowType")
 local Crosshair = Main:WaitForChild("Crosshair")
 
 local OriginalCrosshairSize = Crosshair.Size
@@ -115,6 +121,17 @@ local function Fire()
     Force = 0
 end
 
+local function Toggle()
+    print("Toggling Arrow Type")
+    local result = ToggleArrowEvent:InvokeServer()
+
+    if result then
+        ArrowType.Text = "Ability Arrow"
+    else
+        ArrowType.Text = "Normal Arrow"
+    end
+end
+
 -- Setup Functions
 function class.Equip()
    MouseConnection["down"] = Mouse.Button1Down:Connect(function()
@@ -135,6 +152,14 @@ function class.Equip()
    MouseConnection["up"] = Mouse.Button1Up:Connect(function()
        Fire()
    end)
+
+    MouseConnection["toggle"] = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+         if gameProcessed then return end
+
+         if input.KeyCode == ToggleArrowBind then
+              Toggle()
+         end
+    end)
 end
 
 function class.Unequip()
