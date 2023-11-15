@@ -15,6 +15,7 @@ local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
 
 local Utils = ServerScriptService:WaitForChild("Utils")
 local FastCast = require(Utils:WaitForChild("FastCastRedux"))
+local AssetHandler = require(script.Parent.AssetHandler)
 
 local CastData = {}
 
@@ -79,7 +80,7 @@ function class.Equip(player: Player)
     local Bow = Character:FindFirstChild("Bow")
     if not Bow then warn(`{player} has no Bow visually equipped`) return end
 
-    local Projectile = Bow:FindFirstChild("Arrow") -- probably switch to custom arrow?
+    local Projectile = AssetHandler:GetArrow(player)
     if not Projectile then warn(`{player} has no Arrow visually equipped`) return end
 
     -- Caster Setup

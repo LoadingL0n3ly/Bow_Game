@@ -33,6 +33,11 @@ function class.Reset(player: Player)
     data.LastFire = os.time
 end
 
+function class.GetAbilityArrowToggle(player: Player)
+    if not Data[player] then return end 
+    return Data[player].AbilityArrowToggle
+end
+
 function class.Fire(player: Player)
     local data = Data[player]
     if not data then return {CanFire = false, Msg = "No Data!"} end
