@@ -1,0 +1,296 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "/Users/fedor/Documents/GitHub/Bow_Game",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2023-11-15 12:06:15",
+            "filesum": 42,
+            "codesum": 2800,
+            "commentsum": 11,
+            "blanksum": 728,
+            "statistics": {
+                ".lua": {
+                    "code": 2767,
+                    "comment": 7,
+                    "blank": 722
+                },
+                ".toml": {
+                    "code": 7,
+                    "comment": 1,
+                    "blank": 1
+                },
+                "": {
+                    "code": 3,
+                    "comment": 2,
+                    "blank": 1
+                },
+                ".json": {
+                    "code": 20,
+                    "comment": 0,
+                    "blank": 3
+                },
+                ".md": {
+                    "code": 3,
+                    "comment": 1,
+                    "blank": 1
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 2,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 1,
+                    "filename": "aftman.toml"
+                },
+                {
+                    "blank": 3,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "default.project.json"
+                },
+                {
+                    "blank": 20,
+                    "code": 123,
+                    "comment": 0,
+                    "filename": "demo.lua"
+                },
+                {
+                    "blank": 1,
+                    "code": 3,
+                    "comment": 1,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "selene.toml"
+                },
+                {
+                    "blank": 4,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src/client/init.client.lua"
+                },
+                {
+                    "blank": 5,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src/server/Arrows/ExplodingArrow.lua"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": "src/server/Arrows/StandardArrow.lua"
+                },
+                {
+                    "blank": 14,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "src/server/Modules/BowHandler/Ammo.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src/server/Modules/BowHandler/AssetHandler.lua"
+                },
+                {
+                    "blank": 13,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "src/server/Modules/BowHandler/init.lua"
+                },
+                {
+                    "blank": 27,
+                    "code": 83,
+                    "comment": 0,
+                    "filename": "src/server/Modules/BowHandler/Projectile.lua"
+                },
+                {
+                    "blank": 8,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "src/server/Modules/BowHandler/Visual.lua"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src/server/Server.server.lua"
+                },
+                {
+                    "blank": 72,
+                    "code": 352,
+                    "comment": 0,
+                    "filename": "src/server/Utils/FastCastRedux/ActiveCast.lua"
+                },
+                {
+                    "blank": 6,
+                    "code": 13,
+                    "comment": 1,
+                    "filename": "src/server/Utils/FastCastRedux/init.lua"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src/server/Utils/FastCastRedux/Signal.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 76,
+                    "comment": 0,
+                    "filename": "src/server/Utils/FastCastRedux/Table.lua"
+                },
+                {
+                    "blank": 11,
+                    "code": 78,
+                    "comment": 6,
+                    "filename": "src/server/Utils/FastCastRedux/TypeDefinitions.lua"
+                },
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src/server/Utils/FastCastRedux/TypeMarshaller.lua"
+                },
+                {
+                    "blank": 37,
+                    "code": 111,
+                    "comment": 0,
+                    "filename": "src/shared/Common/BowClient/FiringClient.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src/shared/Common/BowClient/init.lua"
+                },
+                {
+                    "blank": 13,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src/shared/Common/BowClient/Shiftlock.lua"
+                },
+                {
+                    "blank": 16,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Arrow.lua"
+                },
+                {
+                    "blank": 28,
+                    "code": 105,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Box.lua"
+                },
+                {
+                    "blank": 29,
+                    "code": 90,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Capsule.lua"
+                },
+                {
+                    "blank": 24,
+                    "code": 86,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Circle.lua"
+                },
+                {
+                    "blank": 26,
+                    "code": 80,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Cone.lua"
+                },
+                {
+                    "blank": 27,
+                    "code": 87,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Cylinder.lua"
+                },
+                {
+                    "blank": 14,
+                    "code": 53,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Line.lua"
+                },
+                {
+                    "blank": 23,
+                    "code": 99,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Mesh.lua"
+                },
+                {
+                    "blank": 20,
+                    "code": 73,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Plane.lua"
+                },
+                {
+                    "blank": 15,
+                    "code": 56,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Ray.lua"
+                },
+                {
+                    "blank": 14,
+                    "code": 59,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Sphere.lua"
+                },
+                {
+                    "blank": 16,
+                    "code": 73,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/VolumeArrow.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/VolumeBox.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/VolumeCone.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/VolumeCylinder.lua"
+                },
+                {
+                    "blank": 17,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/VolumeSphere.lua"
+                },
+                {
+                    "blank": 28,
+                    "code": 101,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/Gizmos/Wedge.lua"
+                },
+                {
+                    "blank": 94,
+                    "code": 377,
+                    "comment": 0,
+                    "filename": "src/shared/Utils/Gizmo/init.lua"
+                }
+            ]
+        }
+    ]
+}

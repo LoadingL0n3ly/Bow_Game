@@ -1,0 +1,63 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2023-11-15 12:06:15
+count workspace : /Users/fedor/Documents/GitHub/Bow_Game
+total files : 42
+total code lines : 2800
+total comment lines : 11
+total blank lines : 728
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |           .lua|           2767|              7|            722|     99|
+   |          .toml|              7|              1|              1|   0.25|
+   |               |              3|              2|              1|   0.11|
+   |          .json|             20|              0|              3|   0.71|
+   |            .md|              3|              1|              1|   0.11|
+   -------------------------------------------------------------------------
+.gitignore, code is 3, comment is 2, blank is 1.
+aftman.toml, code is 6, comment is 1, blank is 1.
+default.project.json, code is 20, comment is 0, blank is 3.
+demo.lua, code is 123, comment is 0, blank is 20.
+README.md, code is 3, comment is 1, blank is 1.
+selene.toml, code is 1, comment is 0, blank is 0.
+src/client/init.client.lua, code is 7, comment is 0, blank is 4.
+src/server/Arrows/ExplodingArrow.lua, code is 13, comment is 0, blank is 5.
+src/server/Arrows/StandardArrow.lua, code is 0, comment is 0, blank is 0.
+src/server/Modules/BowHandler/Ammo.lua, code is 49, comment is 0, blank is 14.
+src/server/Modules/BowHandler/AssetHandler.lua, code is 24, comment is 0, blank is 8.
+src/server/Modules/BowHandler/init.lua, code is 37, comment is 0, blank is 13.
+src/server/Modules/BowHandler/Projectile.lua, code is 83, comment is 0, blank is 27.
+src/server/Modules/BowHandler/Visual.lua, code is 20, comment is 0, blank is 8.
+src/server/Server.server.lua, code is 9, comment is 0, blank is 3.
+src/server/Utils/FastCastRedux/ActiveCast.lua, code is 352, comment is 0, blank is 72.
+src/server/Utils/FastCastRedux/init.lua, code is 13, comment is 1, blank is 6.
+src/server/Utils/FastCastRedux/Signal.lua, code is 5, comment is 0, blank is 1.
+src/server/Utils/FastCastRedux/Table.lua, code is 76, comment is 0, blank is 17.
+src/server/Utils/FastCastRedux/TypeDefinitions.lua, code is 78, comment is 6, blank is 11.
+src/server/Utils/FastCastRedux/TypeMarshaller.lua, code is 13, comment is 0, blank is 4.
+src/shared/Common/BowClient/FiringClient.lua, code is 111, comment is 0, blank is 37.
+src/shared/Common/BowClient/init.lua, code is 57, comment is 0, blank is 17.
+src/shared/Common/BowClient/Shiftlock.lua, code is 33, comment is 0, blank is 13.
+src/shared/Utils/Gizmo/Gizmos/Arrow.lua, code is 61, comment is 0, blank is 16.
+src/shared/Utils/Gizmo/Gizmos/Box.lua, code is 105, comment is 0, blank is 28.
+src/shared/Utils/Gizmo/Gizmos/Capsule.lua, code is 90, comment is 0, blank is 29.
+src/shared/Utils/Gizmo/Gizmos/Circle.lua, code is 86, comment is 0, blank is 24.
+src/shared/Utils/Gizmo/Gizmos/Cone.lua, code is 80, comment is 0, blank is 26.
+src/shared/Utils/Gizmo/Gizmos/Cylinder.lua, code is 87, comment is 0, blank is 27.
+src/shared/Utils/Gizmo/Gizmos/Line.lua, code is 53, comment is 0, blank is 14.
+src/shared/Utils/Gizmo/Gizmos/Mesh.lua, code is 99, comment is 0, blank is 23.
+src/shared/Utils/Gizmo/Gizmos/Plane.lua, code is 73, comment is 0, blank is 20.
+src/shared/Utils/Gizmo/Gizmos/Ray.lua, code is 56, comment is 0, blank is 15.
+src/shared/Utils/Gizmo/Gizmos/Sphere.lua, code is 59, comment is 0, blank is 14.
+src/shared/Utils/Gizmo/Gizmos/VolumeArrow.lua, code is 73, comment is 0, blank is 16.
+src/shared/Utils/Gizmo/Gizmos/VolumeBox.lua, code is 62, comment is 0, blank is 17.
+src/shared/Utils/Gizmo/Gizmos/VolumeCone.lua, code is 66, comment is 0, blank is 17.
+src/shared/Utils/Gizmo/Gizmos/VolumeCylinder.lua, code is 74, comment is 0, blank is 17.
+src/shared/Utils/Gizmo/Gizmos/VolumeSphere.lua, code is 62, comment is 0, blank is 17.
+src/shared/Utils/Gizmo/Gizmos/Wedge.lua, code is 101, comment is 0, blank is 28.
+src/shared/Utils/Gizmo/init.lua, code is 377, comment is 0, blank is 94.
+===============================================================================
