@@ -15,6 +15,8 @@ Gizmo.Init()
 local BowRemotes = Remotes:WaitForChild("BowRemotes")
 local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
 local ToggleArrowEvent: RemoteFunction = BowRemotes:WaitForChild("ToggleArrow")
+local UpdateAbilityArrowCountEvent: RemoteEvent = BowRemotes:WaitForChild("UpdateAbilityArrowCount")
+local CanFire: RemoteFunction = BowRemotes:WaitForChild("CanFire")
 
 -- Binds
 local ToggleArrowBind = Enum.KeyCode.Q
@@ -27,6 +29,7 @@ local Mouse = Player:GetMouse()
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local Main = PlayerGui:WaitForChild("Main")
 local ArrowType: TextLabel = Main:WaitForChild("ArrowType")
+local AbilityArrowCount: TextLabel = Main:WaitForChild("AbilityArrowCount")
 local Crosshair = Main:WaitForChild("Crosshair")
 
 local OriginalCrosshairSize = Crosshair.Size
@@ -100,11 +103,9 @@ local function GetAngle()
     return Direction
 end
 
-RunService:BindToRenderStep("GetAngle", Enum.RenderPriority.Camera.Value - 1, GetAngle)
+-- RunService:BindToRenderStep("GetAngle", Enum.RenderPriority.Camera.Value - 1, GetAngle)
 
 local function Fire()
-    print("Whoosh!")
-    
     local Direction = GetAngle() or Vector3.new(0, 1, 0)
     FireEvent:FireServer(Direction, Force)
     
@@ -127,14 +128,21 @@ local function Toggle()
 
     if result then
         ArrowType.Text = "Ability Arrow"
+        AbilityArrowCount.Visible = true
     else
         ArrowType.Text = "Normal Arrow"
+        AbilityArrowCount.Visible = false
     end
 end
 
 -- Setup Functions
 function class.Equip()
+   ArrowType.Visible = true
+   
    MouseConnection["down"] = Mouse.Button1Down:Connect(function()
+       local CanFire = CanFire:InvokeServer()
+       if not CanFire then print("can't fire") return end
+       
        ChargingUp = true
 
        local RemTime = (MaxForce/ChargeUpMultiplier) * Interval
@@ -160,9 +168,16 @@ function class.Equip()
               Toggle()
          end
     end)
+
+    MouseConnection["AbilityArrowCount"] = UpdateAbilityArrowCountEvent.OnClientEvent:Connect(function(count)
+        AbilityArrowCount.Text = count
+    end)
 end
 
 function class.Unequip()
+    AbilityArrowCount.Visible = false
+    ArrowType.Visible = false
+    
     for _, Connection in pairs(MouseConnection) do
         Connection:Disconnect()
     end

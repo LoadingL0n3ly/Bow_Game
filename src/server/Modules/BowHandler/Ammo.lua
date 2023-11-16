@@ -6,13 +6,15 @@ local Remotes = ReplicatedStorage.Remotes
 
 local BowRemotes = Remotes.BowRemotes
 
+local UpdateAbilityArrowCountEvent: RemoteEvent = BowRemotes.UpdateAbilityArrowCount
 local ToggleArrow: RemoteFunction = BowRemotes.ToggleArrow
+local CanFire: RemoteFunction = BowRemotes.CanFire
 
 -- Ammo Data
 local Data = {}
 
 -- Constants
-local FIRE_COOLDOWN = 0.5
+local FIRE_COOLDOWN = 0.2
 local ABILITY_ARROWS = 3
 local ARROW_REGEN = 3
 
@@ -50,6 +52,7 @@ function class.GetAbilityArrowToggle(player: Player)
 end
 
 function class.Fire(player: Player)
+    print(`Recieved Fire Request from {player.Name}`)
     local data = Data[player]
     if not data then return {CanFire = false, Msg = "No Data!"} end
 
@@ -59,8 +62,22 @@ function class.Fire(player: Player)
     data.LastFire = os.time()
 
     if data.AbilityArrowToggle then 
-        data.AbilityArrows -= 1 
+        data.AbilityArrows -= 1
+        UpdateAbilityArrowCountEvent:FireClient(player, data.AbilityArrows) 
     end
+
+    return {CanFire = true, Msg = "Fired!"}
+end
+
+function class.CanFire(player: Player)
+    local data = Data[player]
+    if not data then warn("No Data!") return false end
+
+    if os.time() - data.LastFire < FIRE_COOLDOWN then warn("cooldown") return false end
+    if data.AbilityArrows <= 0 and data.AbilityArrowToggle then  warn("no arrow") return false end
+
+    print("Allowing Fire")
+    return true
 end
 
 function class.ToggleArrow(player: Player)
@@ -73,10 +90,12 @@ end
 
 function class.Setup()
     ToggleArrow.OnServerInvoke = class.ToggleArrow
+    CanFire.OnServerInvoke = class.CanFire
     
     while task.wait(3) do
         for player, data in pairs(Data) do
             data.AbilityArrows += 1
+            UpdateAbilityArrowCountEvent:FireClient(player, data.AbilityArrows)
         end
     end
 end

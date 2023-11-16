@@ -8,6 +8,8 @@ local Modules = script.Parent
 local Common = ReplicatedStorage:WaitForChild("Common")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 
+local Ammo = require(script.Parent.Ammo)
+
 local BowRemotes = Remotes:WaitForChild("BowRemotes")
 local EquipBowEvent: RemoteFunction = BowRemotes:WaitForChild("EquipBow")
 local UnequipBowEvent: RemoteFunction = BowRemotes:WaitForChild("UnequipBow")
@@ -50,8 +52,6 @@ end
 
 -- Fire
 function class.Fire(player: Player, direction: Vector3, force: number)
-    print(`Recieved Fire Request from {player.Name}`)
-
     local Character = player.Character
     if not Character then return end
 
@@ -64,8 +64,10 @@ function class.Fire(player: Player, direction: Vector3, force: number)
     local FastCastData = CastData[player]
     if not FastCastData then return end
 
+    local Result = Ammo.Fire(player)
+    if not Result.CanFire then return warn(Result.Msg) end
+
     FastCastData.FastCastBehavior.CosmeticBulletTemplate = AssetHandler.GetArrow(player)
-    print(FastCastData.FastCastBehavior.CosmeticBulletTemplate.Name)
 
     FastCastData.Caster:Fire(
         Bow.Handle.Position,
@@ -82,9 +84,6 @@ function class.Equip(player: Player)
 
     local Bow = Character:FindFirstChild("Bow")
     if not Bow then warn(`{player} has no Bow visually equipped`) return end
-
-    -- local Projectile = AssetHandler.GetArrow(player)
-    -- if not Projectile then warn(`{player} has no Arrow visually equipped`) return end
 
     -- Caster Setup
     local Caster = FastCast.new()
