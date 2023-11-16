@@ -64,6 +64,9 @@ function class.Fire(player: Player, direction: Vector3, force: number)
     local FastCastData = CastData[player]
     if not FastCastData then return end
 
+    FastCastData.FastCastBehavior.CosmeticBulletTemplate = AssetHandler.GetArrow(player)
+    print(FastCastData.FastCastBehavior.CosmeticBulletTemplate.Name)
+
     FastCastData.Caster:Fire(
         Bow.Handle.Position,
         direction,
@@ -80,8 +83,8 @@ function class.Equip(player: Player)
     local Bow = Character:FindFirstChild("Bow")
     if not Bow then warn(`{player} has no Bow visually equipped`) return end
 
-    local Projectile = AssetHandler:GetArrow(player)
-    if not Projectile then warn(`{player} has no Arrow visually equipped`) return end
+    -- local Projectile = AssetHandler.GetArrow(player)
+    -- if not Projectile then warn(`{player} has no Arrow visually equipped`) return end
 
     -- Caster Setup
     local Caster = FastCast.new()
@@ -97,7 +100,7 @@ function class.Equip(player: Player)
     FastCastBehavior.RaycastParams:AddToFilter(Bow:GetDescendants())
 
     FastCastBehavior.Acceleration = Vector3.new(0, -workspace.Gravity * 0.1, 0)
-    FastCastBehavior.CosmeticBulletTemplate = Projectile
+    -- FastCastBehavior.CosmeticBulletTemplate = Projectile
     FastCastBehavior.CosmeticBulletContainer  = workspace.Arrows
 
     CastData[player] = {["Caster"] = Caster, ["FastCastBehavior"] = FastCastBehavior}
