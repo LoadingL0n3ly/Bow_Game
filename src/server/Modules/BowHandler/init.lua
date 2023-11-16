@@ -43,6 +43,7 @@ end
 
 function class.PlayerAdded(player: Player)
     Ammo.PlayerAdded(player)
+    print(Ammo.GetAbilityArrowToggle(player))
 end
 
 function class.PlayerRemoving(player: Player)
