@@ -51,6 +51,14 @@ function class.GetAbilityArrowToggle(player: Player)
     return Data[player].AbilityArrowToggle
 end
 
+function class.GetArrowHandler(player: Player)
+    if not Data[player] then return end 
+
+    local BowName = "Test"
+
+    
+end
+
 function class.Fire(player: Player)
     print(`Recieved Fire Request from {player.Name}`)
     local data = Data[player]
@@ -92,7 +100,7 @@ function class.Setup()
     ToggleArrow.OnServerInvoke = class.ToggleArrow
     CanFire.OnServerInvoke = class.CanFire
     
-    while task.wait(3) do
+    while task.wait() do
         for player, data in pairs(Data) do
             data.AbilityArrows += 1
             UpdateAbilityArrowCountEvent:FireClient(player, data.AbilityArrows)

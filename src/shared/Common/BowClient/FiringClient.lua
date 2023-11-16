@@ -135,13 +135,17 @@ local function Toggle()
     end
 end
 
+local Cancelled = false
 -- Setup Functions
 function class.Equip()
    ArrowType.Visible = true
    
    MouseConnection["down"] = Mouse.Button1Down:Connect(function()
        local CanFire = CanFire:InvokeServer()
-       if not CanFire then print("can't fire") return end
+       if not CanFire then
+            Cancelled = true
+            return
+       end
        
        ChargingUp = true
 
@@ -158,7 +162,11 @@ function class.Equip()
    end)
 
    MouseConnection["up"] = Mouse.Button1Up:Connect(function()
-       Fire()
+       if Cancelled then
+            Cancelled = false
+            return
+       end
+        Fire()
    end)
 
     MouseConnection["toggle"] = UserInputService.InputBegan:Connect(function(input, gameProcessed)
