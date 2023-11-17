@@ -134,13 +134,16 @@ local function Toggle()
     end
 end
 
+local AbilityArrowCountVar = 3
+local AbilityArrowToggleVar = false
+
 local Cancelled = false
 -- Setup Functions
 function class.Equip()
    ArrowType.Visible = true
    
    MouseConnection["down"] = Mouse.Button1Down:Connect(function()
-       local CanFire = CanFire:InvokeServer()
+       local CanFire = (AbilityArrowToggleVar and AbilityArrowCountVar > 0) or (not AbilityArrowToggleVar)
        if not CanFire then
             Cancelled = true
             return
@@ -173,11 +176,13 @@ function class.Equip()
 
          if input.KeyCode == ToggleArrowBind then
               Toggle()
+              AbilityArrowToggleVar = not AbilityArrowToggleVar
          end
     end)
 
     MouseConnection["AbilityArrowCount"] = UpdateAbilityArrowCountEvent.OnClientEvent:Connect(function(count)
         AbilityArrowCount.Text = count
+        AbilityArrowCountVar = count
     end)
 end
 
