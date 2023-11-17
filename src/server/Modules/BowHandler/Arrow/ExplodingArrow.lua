@@ -4,11 +4,19 @@ local TweenService = game:GetService("TweenService")
 local ServerScriptService = game:GetService("ServerScriptService")
 local Utils = ServerScriptService.Utils
 
+local Modules = ServerScriptService.Modules
 local FastCast = require(Utils:WaitForChild("FastCastRedux"))
+local Ammo = require(Modules.BowHandler:WaitForChild("Ammo"))
+local StandardArrow = require(script.Parent)
 
 
 local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
-	-- Whenever the caster steps forward by one unit, this function is called.
+    if not cast.UserData.Gen.abilityToggle then
+        StandardArrow.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
+    end
+
+    
+    -- Whenever the caster steps forward by one unit, this function is called.
 	-- The bullet argument is the same object passed into the fire function.
 	local bulletLength = cosmeticBulletObject.Size.Z / 2 -- This is used to move the bullet to the right spot based on a CFrame offset
 	local baseCFrame = CFrame.new(segmentOrigin, segmentOrigin + segmentDirection)
@@ -16,20 +24,32 @@ local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, se
 end
 
 local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
-    
+    if not cast.UserData.Gen.abilityToggle then
+        StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
+    end
 end
 
 -- Pierce Functions
 local function RayPierced(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
-    
+    if not cast.UserData.Gen.abilityToggle then
+        StandardArrow.RayPierced(cast, result, segmentVelocity, cosmeticBulletObject)
+    end
 end
 
 local function CanRayPierce(cast, result: RaycastResult, segmentVelocity: Vector3)
+    if not cast.UserData.Gen.abilityToggle then
+        StandardArrow.CanRayPierce(cast, result, segmentVelocity)
+    end
+    
     return false
 end
 
 local function OnRayTerminated(cast)
-	local cosmeticBullet = cast.RayInfo.CosmeticBulletObject
+	if not cast.UserData.Gen.abilityToggle then
+        StandardArrow.OnRayTerminated(cast)
+    end
+    
+    local cosmeticBullet = cast.RayInfo.CosmeticBulletObject
 	if cosmeticBullet ~= nil then
 		task.delay(3, function()
             local TransparencyTween = TweenService:Create(cosmeticBullet, TweenInfo.new(3, Enum.EasingStyle.Linear), {Transparency = 1})
@@ -43,13 +63,12 @@ local function OnRayTerminated(cast)
 end
 
 -- constructor
-function class.NewCast(Player, Character, Bow)
+function class.NewCaster(Player, Character, Bow)
     local Caster = FastCast.new()
     Caster.LengthChanged:Connect(OnLengthChanged)
     Caster.CastTerminating:Connect(OnRayTerminated)
     Caster.RayHit:Connect(OnRayHit)
     Caster.RayPierced:Connect(RayPierced)
-    Caster.UserData = {player = Player, character = Character, bow = Bow}
 
     local FastCastBehavior = FastCast.newBehavior()
     FastCastBehavior.RaycastParams = RaycastParams.new()

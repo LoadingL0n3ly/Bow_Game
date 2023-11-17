@@ -41,13 +41,16 @@ function class.Fire(player: Player, direction: Vector3, force: number)
     local Result = Ammo.Fire(player)
     if not Result.CanFire then return warn(Result.Msg) end
 
+
     FastCastData.FastCastBehavior.CosmeticBulletTemplate = AssetHandler.GetArrow(player)
-    FastCastData.Caster:Fire(
+    local cast = FastCastData.Caster:Fire(
         Bow.Handle.Position,
         direction,
         math.clamp(force, 0, MaxForce) * 10,
         FastCastData.FastCastBehavior
     )
+
+    cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityToggle(player)}}
 end
 
 

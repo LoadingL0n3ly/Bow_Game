@@ -8,9 +8,12 @@ local Players = game.Players
 
 
 
-function class()
-    
+function class.GetBowName(player: Player)
+    return "Test"
 end
 
+function class.Get()
+    
+end
 
 return class
