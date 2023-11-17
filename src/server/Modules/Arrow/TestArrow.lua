@@ -24,12 +24,26 @@ local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, se
 end
 
 local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
-    -- if not cast.UserData.Gen.abilityToggle then
-    --     StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
-    --     return
-    -- end
+    if not cast.UserData.Gen.abilityToggle then
+        StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
+        return
+    end
 
-    StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
+    if result.Instance.Parent:FindFirstChild("Humanoid") then
+		local humanoid = result.Instance.Parent:FindFirstChild("Humanoid")
+		
+        if result.Instance.Parent:FindFirstChild("Head") then
+            local head = result.Instance.Parent:FindFirstChild("Head")
+            humanoid:TakeDamage(100)
+            head.BrickColor = BrickColor.new("Really red")
+        else
+            humanoid:TakeDamage(25)
+        end
+	end
+end
+
+local function Reflect(surfaceNormal, bulletNormal)
+	return bulletNormal - (2 * bulletNormal:Dot(surfaceNormal) * surfaceNormal)
 end
 
 -- Pierce Functions
@@ -38,6 +52,16 @@ local function RayPierced(cast, result: RaycastResult, segmentVelocity: Vector3,
         StandardArrow.RayPierced(cast, result, segmentVelocity, cosmeticBulletObject)
         return
     end
+
+    local position = result.Position
+	local normal = result.Normal
+	
+	local newNormal = Reflect(normal, segmentVelocity.Unit)
+	cast:SetVelocity(newNormal * segmentVelocity.Magnitude)
+	
+	-- It's super important that we set the cast's position to the ray hit position. Remember: When a pierce is successful, it increments the ray forward by one increment.
+	-- If we don't do this, it'll actually start the bounce effect one segment *after* it continues through the object, which for thin walls, can cause the bullet to almost get stuck in the wall.
+	cast:SetPosition(position)
 end
 
 local function CanRayPierce(cast, result: RaycastResult, segmentVelocity: Vector3)
@@ -45,8 +69,8 @@ local function CanRayPierce(cast, result: RaycastResult, segmentVelocity: Vector
         StandardArrow.CanRayPierce(cast, result, segmentVelocity)
         return false
     end
-    
-    return false
+
+    return result.Instance:HasTag("Bounce")
 end
 
 local function OnRayTerminated(cast)

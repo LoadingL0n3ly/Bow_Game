@@ -16,7 +16,10 @@ function class.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, se
 end
 
 function class.OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
-    
+    if result.Instance.Parent:FindFirstChild("Humanoid") then
+		local humanoid = result.Instance.Parent:FindFirstChild("Humanoid")
+		humanoid:TakeDamage(10)
+	end
 end
 
 -- Pierce Functions
