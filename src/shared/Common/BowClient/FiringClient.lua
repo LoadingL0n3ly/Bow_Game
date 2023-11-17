@@ -123,7 +123,6 @@ local function Fire()
 end
 
 local function Toggle()
-    print("Toggling Arrow Type")
     local result = ToggleArrowEvent:InvokeServer()
 
     if result then

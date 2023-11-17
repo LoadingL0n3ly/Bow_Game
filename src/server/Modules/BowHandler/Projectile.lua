@@ -18,6 +18,7 @@ local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
 local Utils = ServerScriptService:WaitForChild("Utils")
 local FastCast = require(Utils:WaitForChild("FastCastRedux"))
 local AssetHandler = require(script.Parent.AssetHandler)
+local DataManager = require(script.Parent.DataManager)
 
 local CastData = {}
 
@@ -50,7 +51,7 @@ function class.Fire(player: Player, direction: Vector3, force: number)
         FastCastData.FastCastBehavior
     )
 
-    cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityToggle(player)}}
+    cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityArrowToggle(player)}}
 end
 
 
@@ -63,7 +64,8 @@ function class.Equip(player: Player)
 
     -- Caster Setup
     
-
+    local Module = DataManager.GetArrowModule(player)
+    local Caster, FastCastBehavior = Module.New(player, Character, Bow)
     CastData[player] = {["Caster"] = Caster, ["FastCastBehavior"] = FastCastBehavior}
 end
 

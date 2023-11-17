@@ -14,7 +14,7 @@ local CanFire: RemoteFunction = BowRemotes.CanFire
 local Data = {}
 
 -- Constants
-local FIRE_COOLDOWN = 0.2
+local FIRE_COOLDOWN = 0
 local ABILITY_ARROWS = 3
 local ARROW_REGEN = 3
 
@@ -60,7 +60,6 @@ function class.GetArrowHandler(player: Player)
 end
 
 function class.Fire(player: Player)
-    print(`Recieved Fire Request from {player.Name}`)
     local data = Data[player]
     if not data then return {CanFire = false, Msg = "No Data!"} end
 
@@ -100,7 +99,7 @@ function class.Setup()
     ToggleArrow.OnServerInvoke = class.ToggleArrow
     CanFire.OnServerInvoke = class.CanFire
     
-    while task.wait() do
+    while task.wait(ARROW_REGEN) do
         for player, data in pairs(Data) do
             data.AbilityArrows += 1
             UpdateAbilityArrowCountEvent:FireClient(player, data.AbilityArrows)

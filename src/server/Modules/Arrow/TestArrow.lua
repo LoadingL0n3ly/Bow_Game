@@ -12,9 +12,9 @@ local StandardArrow = require(script.Parent)
 
 local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
     if not cast.UserData.Gen.abilityToggle then
-        StandardArrow.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
+         StandardArrow.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
+         return
     end
-
     
     -- Whenever the caster steps forward by one unit, this function is called.
 	-- The bullet argument is the same object passed into the fire function.
@@ -24,21 +24,26 @@ local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, se
 end
 
 local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
-    if not cast.UserData.Gen.abilityToggle then
-        StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
-    end
+    -- if not cast.UserData.Gen.abilityToggle then
+    --     StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
+    --     return
+    -- end
+
+    StandardArrow.OnRayHit(cast, result, segmentVelocity, cosmeticBulletObject)
 end
 
 -- Pierce Functions
 local function RayPierced(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
     if not cast.UserData.Gen.abilityToggle then
         StandardArrow.RayPierced(cast, result, segmentVelocity, cosmeticBulletObject)
+        return
     end
 end
 
 local function CanRayPierce(cast, result: RaycastResult, segmentVelocity: Vector3)
     if not cast.UserData.Gen.abilityToggle then
         StandardArrow.CanRayPierce(cast, result, segmentVelocity)
+        return false
     end
     
     return false
@@ -47,13 +52,14 @@ end
 local function OnRayTerminated(cast)
 	if not cast.UserData.Gen.abilityToggle then
         StandardArrow.OnRayTerminated(cast)
+        return
     end
     
     local cosmeticBullet = cast.RayInfo.CosmeticBulletObject
 	if cosmeticBullet ~= nil then
 		task.delay(3, function()
             local TransparencyTween = TweenService:Create(cosmeticBullet, TweenInfo.new(3, Enum.EasingStyle.Linear), {Transparency = 1})
-            TransparencyTween:Play()s
+            TransparencyTween:Play()
             
             TransparencyTween.Completed:Once(function()
                 cosmeticBullet:Destroy()
@@ -63,7 +69,7 @@ local function OnRayTerminated(cast)
 end
 
 -- constructor
-function class.NewCaster(Player, Character, Bow)
+function class.New(Player, Character, Bow)
     local Caster = FastCast.new()
     Caster.LengthChanged:Connect(OnLengthChanged)
     Caster.CastTerminating:Connect(OnRayTerminated)
