@@ -105,13 +105,15 @@ end
 
 -- RunService:BindToRenderStep("GetAngle", Enum.RenderPriority.Camera.Value - 1, GetAngle)
 
-local function Fire()
-    local Direction = GetAngle() or Vector3.new(0, 1, 0)
-    FireEvent:FireServer(Direction, Force)
+local function Fire(cancel: boolean)
+    if not cancel then
+        local Direction = GetAngle() or Vector3.new(0, 1, 0)
+        FireEvent:FireServer(Direction, Force)
+    end
     
     ChargingUp = false
-    FOVZoom:Cancel()
-    CrosshairZoom:Cancel()
+    if FOVZoom then FOVZoom:Cancel() end
+    if CrosshairZoom then CrosshairZoom:Cancel() end
 
     ResetFOV:Play()
     ResetCrosshair:Play()
@@ -152,7 +154,7 @@ function class.Equip()
        ChargingUp = true
 
        local RemTime = (MaxForce/ChargeUpMultiplier) * Interval
-       FOVZoom = TweenService:Create(workspace.CurrentCamera, TweenInfo.new(RemTime, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {FieldOfView = 30})
+       FOVZoom = TweenService:Create(workspace.CurrentCamera, TweenInfo.new(RemTime, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {FieldOfView = 45})
        FOVZoom:Play()
 
        CrosshairZoom = TweenService:Create(Crosshair, TweenInfo.new(RemTime, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.fromScale(OriginalCrosshairSize.X.Scale * 0.6, OriginalCrosshairSize.Y.Scale * 0.6)})
@@ -189,6 +191,7 @@ end
 function class.Unequip()
     AbilityArrowCount.Visible = false
     ArrowType.Visible = false
+    Fire(true)
     
     for _, Connection in pairs(MouseConnection) do
         Connection:Disconnect()

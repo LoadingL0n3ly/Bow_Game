@@ -64,6 +64,17 @@ local function RayPierced(cast, result: RaycastResult, segmentVelocity: Vector3,
 	-- It's super important that we set the cast's position to the ray hit position. Remember: When a pierce is successful, it increments the ray forward by one increment.
 	-- If we don't do this, it'll actually start the bounce effect one segment *after* it continues through the object, which for thin walls, can cause the bullet to almost get stuck in the wall.
 	cast:SetPosition(position)
+
+    if not cosmeticBulletObject then return end
+    local emmitter: ParticleEmitter = cosmeticBulletObject:FindFirstChild("Attachment"):FindFirstChildWhichIsA("ParticleEmitter")
+    -- if emmitter change the imagecolor to white for a seocnd
+    local color = emmitter.Color
+    if emmitter then
+        emmitter.Color = ColorSequence.new(Color3.new(1, 1, 1))
+        task.delay(0.1, function()
+            emmitter.Color = color
+        end)
+    end
 end
 
 local function CanRayPierce(cast, result: RaycastResult, segmentVelocity: Vector3)

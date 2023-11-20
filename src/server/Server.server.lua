@@ -20,7 +20,7 @@ local welcomeConfig = {
 -- Connections
 local function PlayerAdded(player: Player)
     BowHandler.PlayerAdded(player)
-    BannerNotif:Notify("Welcome!", `Bow Battles Dev Place Version {workspace:GetAttribute("Version")}`, "rbxassetid://15375550133", 5, welcomeConfig, player)
+    BannerNotif:Notify("Welcome!", `Bow Battles Dev Place Version {workspace:GetAttribute("Version")}. Use E to Equip and Q to Toggle Ability`, "rbxassetid://15375550133", 5, welcomeConfig, player)
 
 end
 
