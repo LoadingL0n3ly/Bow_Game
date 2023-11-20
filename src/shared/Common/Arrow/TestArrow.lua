@@ -1,14 +1,14 @@
 local class = {}
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local TweenService = game:GetService("TweenService")
-local ServerScriptService = game:GetService("ServerScriptService")
-local Utils = ServerScriptService.Utils
+local Rutils = ReplicatedStorage.Utils
 
-local Modules = ServerScriptService.Modules
-local FastCast = require(Utils:WaitForChild("FastCastRedux"))
-local Ammo = require(Modules.BowHandler:WaitForChild("Ammo"))
+local FastCast = require(Rutils:WaitForChild("FastCastRedux"))
+FastCast.VisualizeCasts = false
 local StandardArrow = require(script.Parent)
 
+local RunService = game:GetService("RunService")
 
 local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
     if not cast.UserData.Gen.abilityToggle then
@@ -16,8 +16,9 @@ local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, se
          return
     end
     
-    -- Whenever the caster steps forward by one unit, this function is called.
-	-- The bullet argument is the same object passed into the fire function.
+    --- Handles the server/client question since cosmetic bullet will only actually exist in the server
+    if not cosmeticBulletObject then return end
+
 	local bulletLength = cosmeticBulletObject.Size.Z / 2 -- This is used to move the bullet to the right spot based on a CFrame offset
 	local baseCFrame = CFrame.new(segmentOrigin, segmentOrigin + segmentDirection)
 	cosmeticBulletObject.CFrame = baseCFrame * CFrame.new(0, 0, -(length - bulletLength))
@@ -29,6 +30,7 @@ local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, c
         return
     end
 
+    if RunService:IsClient() then return end
     if result.Instance.Parent:FindFirstChild("Humanoid") then
 		local humanoid = result.Instance.Parent:FindFirstChild("Humanoid")
 		

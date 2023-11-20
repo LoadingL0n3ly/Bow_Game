@@ -6,7 +6,7 @@ local Modules = ServerScriptService:WaitForChild("Modules")
 local Common = ReplicatedStorage:WaitForChild("Common")
 
 -- Modules
-local BowHandler = require(Modules:WaitForChild("BowHandler"))
+local BowHandler = require(Common:WaitForChild("BowHandler"))
 local BannerNotif = require(Common.BannerNotif)
 
 local welcomeConfig = {

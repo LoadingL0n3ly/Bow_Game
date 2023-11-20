@@ -9,6 +9,7 @@ local Common = ReplicatedStorage:WaitForChild("Common")
 local Database = ReplicatedStorage:WaitForChild("Database")
 local Utils = ReplicatedStorage:WaitForChild("Utils")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
+local Replication = require(script.Replication)
 
 local BowRemotes = Remotes:WaitForChild("BowRemotes")
 local EquipBowEvent: RemoteFunction = BowRemotes:WaitForChild("EquipBow")
@@ -31,7 +32,6 @@ function class.Equip()
     assert(ServerResponse, "Server did not accept Equip Request!")
     if not ServerResponse then return end
 
-    print("Equipped!")
     local Character = Player.Character
     if not Character then print("Shiftlock couldn't fix character!") return end
 
@@ -48,8 +48,6 @@ function class.Unequip()
     assert(ServerResponse, "Server did not accept UnEquip Request!")
     if not ServerResponse then return end
 
-    print("Unequipped!")
-
     Shiftlock.ShiftLock(false)
     FiringClient.Unequip()
     Equipped = false
@@ -57,7 +55,6 @@ end
 
 -- Setup Code
 function class.Setup()
-    print("Setting Up!")
     UserInputService.InputBegan:Connect(function(Input: InputObject, GameProcessed)
         if GameProcessed then return end
         if Input.KeyCode ~= EQUIP_KEY then return end
@@ -68,6 +65,8 @@ function class.Setup()
             class.Equip()
         end
     end)
+
+    Replication.Setup()
 end
 
 

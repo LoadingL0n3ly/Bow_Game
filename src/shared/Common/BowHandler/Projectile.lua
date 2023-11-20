@@ -15,8 +15,16 @@ local EquipBowEvent: RemoteFunction = BowRemotes:WaitForChild("EquipBow")
 local UnequipBowEvent: RemoteFunction = BowRemotes:WaitForChild("UnequipBow")
 local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
 
+-- Replication Remotes
+local Replication: Folder = BowRemotes:WaitForChild("Replication")
+
+local NewPlayerCasterEvent: RemoteEvent = Replication:WaitForChild("NewPlayerCaster")
+local RemovePlayerCasterEvent: RemoteEvent = Replication:WaitForChild("RemovePlayerCaster")
+local FireVisualProjectileEvent: RemoteEvent = Replication:WaitForChild("FireVisualProjectile")
+
 local Utils = ServerScriptService:WaitForChild("Utils")
-local FastCast = require(Utils:WaitForChild("FastCastRedux"))
+local Rutils = ReplicatedStorage:WaitForChild("Utils")
+local FastCast = require(Rutils:WaitForChild("FastCastRedux"))  
 local AssetHandler = require(script.Parent.AssetHandler)
 local DataManager = require(script.Parent.DataManager)
 
@@ -41,17 +49,16 @@ function class.Fire(player: Player, direction: Vector3, force: number)
 
     local Result = Ammo.Fire(player)
     if not Result.CanFire then return warn(Result.Msg) end
-
-
-    FastCastData.FastCastBehavior.CosmeticBulletTemplate = AssetHandler.GetArrow(player)
+    --AssetHandler.GetArrow(player)
     local cast = FastCastData.Caster:Fire(
         Bow.Handle.Position,
         direction,
         math.clamp(force, 0, MaxForce) * 10,
         FastCastData.FastCastBehavior
     )
-
     cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityArrowToggle(player)}}
+
+    FireVisualProjectileEvent:FireAllClients(player, Bow.Handle.Position, direction, math.clamp(force, 0, MaxForce) * 10, AssetHandler.GetArrow(player), Ammo.GetAbilityArrowToggle(player))
 end
 
 
@@ -64,13 +71,16 @@ function class.Equip(player: Player)
 
     -- Caster Setup
     
-    local Module = DataManager.GetArrowModule(player)
+    local Module, bowName = DataManager.GetArrowModule(player)
     local Caster, FastCastBehavior = Module.New(player, Character, Bow)
     CastData[player] = {["Caster"] = Caster, ["FastCastBehavior"] = FastCastBehavior}
+
+    NewPlayerCasterEvent:FireAllClients(player, bowName)
 end
 
 function class.Unequip(player: Player)
     CastData[player] = nil
+    RemovePlayerCasterEvent:FireAllClients(player)
 end
 
 return class

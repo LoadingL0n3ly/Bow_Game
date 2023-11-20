@@ -8,6 +8,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 local Utils = ReplicatedStorage:WaitForChild("Utils")
 
+local Replication = require(script.Parent.Replication)
+
 local Gizmo = require(Utils.Gizmo)
 Gizmo.Init()
 
@@ -16,8 +18,6 @@ local BowRemotes = Remotes:WaitForChild("BowRemotes")
 local FireEvent: RemoteEvent = BowRemotes:WaitForChild("Fire")
 local ToggleArrowEvent: RemoteFunction = BowRemotes:WaitForChild("ToggleArrow")
 local UpdateAbilityArrowCountEvent: RemoteEvent = BowRemotes:WaitForChild("UpdateAbilityArrowCount")
-local CanFire: RemoteFunction = BowRemotes:WaitForChild("CanFire")
-
 -- Binds
 local ToggleArrowBind = Enum.KeyCode.Q
 
