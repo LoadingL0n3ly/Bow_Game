@@ -9,18 +9,10 @@ local Common = ReplicatedStorage:WaitForChild("Common")
 local BowHandler = require(Common:WaitForChild("BowHandler"))
 local BannerNotif = require(Common.BannerNotif)
 
-local welcomeConfig = {
-	.3, 							-- Background Transparency
-	Color3.new(0.549019, 0.933333, 0.470588), 		-- Background Color
-	
-	0, 								-- Content Transparency
-	Color3.new(255, 255, 255), 	-- Content Color
-}
-
 -- Connections
 local function PlayerAdded(player: Player)
     BowHandler.PlayerAdded(player)
-    BannerNotif:Notify("Welcome!", `Bow Battles Dev Place Version {workspace:GetAttribute("Version")}. Use E to Equip and Q to Toggle Ability`, "rbxassetid://15375550133", 5, welcomeConfig, player)
+    BannerNotif:Notify("Welcome!", `Bow Battles Dev Place Version {workspace:GetAttribute("Version")}. Use E to Equip and Q to Toggle Ability`, "rbxassetid://15375550133", 5, nil, player)
 
 end
 

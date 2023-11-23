@@ -83,7 +83,6 @@ function class.CanFire(player: Player)
 
     if os.time() - data.LastFire < FIRE_COOLDOWN then warn("cooldown") return false end
     if data.AbilityArrows <= 0 and data.AbilityArrowToggle then 
-        BannerNotif:Notify("Welcome!", `Now enough arrows!`, "rbxassetid://15375550133", 2, nil, player)
         return false 
     end
 
