@@ -9,6 +9,16 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
+local function FindHumanoid(instance: Instance)
+	local parent = instance
+	while parent ~= nil and parent ~= workspace do
+		if parent:FindFirstChild("Humanoid") then
+			return parent:FindFirstChild("Humanoid")
+		end
+		parent = parent.Parent
+	end
+end
+
 
 function class.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
 	if not cosmeticBulletObject then return end
@@ -18,9 +28,9 @@ function class.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, se
 end
 
 function class.OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, cosmeticBulletObject: Instance)
-    if RunService:IsClient() then return end
-	if result.Instance.Parent:FindFirstChild("Humanoid") then
-		local humanoid = result.Instance.Parent:FindFirstChild("Humanoid")
+	if RunService:IsClient() then return end
+	if FindHumanoid(result.Instance) then
+		local humanoid = FindHumanoid(result.Instance)
 		humanoid:TakeDamage(10)
 	end
 end

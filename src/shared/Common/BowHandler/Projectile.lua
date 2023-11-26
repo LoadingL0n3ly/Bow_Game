@@ -22,9 +22,8 @@ local NewPlayerCasterEvent: RemoteEvent = Replication:WaitForChild("NewPlayerCas
 local RemovePlayerCasterEvent: RemoteEvent = Replication:WaitForChild("RemovePlayerCaster")
 local FireVisualProjectileEvent: RemoteEvent = Replication:WaitForChild("FireVisualProjectile")
 
-local Utils = ServerScriptService:WaitForChild("Utils")
 local Rutils = ReplicatedStorage:WaitForChild("Utils")
-local FastCast = require(Rutils:WaitForChild("FastCastRedux"))  
+local FastCast = require(Rutils:WaitForChild("FastCastRedux"))
 local AssetHandler = require(script.Parent.AssetHandler)
 local DataManager = require(script.Parent.DataManager)
 
@@ -34,7 +33,7 @@ local CastData = {}
 local MaxForce = 30
 
 -- Fire
-function class.Fire(player: Player, direction: Vector3, force: number)
+function class.Fire(player: Player, direction: Vector3, force: number, playerPos: Vector3)
     local Character = player.Character
     if not Character then return end
 
@@ -53,12 +52,12 @@ function class.Fire(player: Player, direction: Vector3, force: number)
     local cast = FastCastData.Caster:Fire(
         Bow.Handle.Position,
         direction,
-        math.clamp(force, 0, MaxForce) * 10,
+        math.clamp(force, 0, MaxForce) * 25,
         FastCastData.FastCastBehavior
     )
     cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityArrowToggle(player)}}
 
-    FireVisualProjectileEvent:FireAllClients(player, Bow.Handle.Position, direction, math.clamp(force, 0, MaxForce) * 10, AssetHandler.GetArrow(player), Ammo.GetAbilityArrowToggle(player))
+    FireVisualProjectileEvent:FireAllClients(player, Bow.Handle.Position, direction, math.clamp(force, 0, MaxForce) * 25, AssetHandler.GetArrow(player), Ammo.GetAbilityArrowToggle(player))
 end
 
 

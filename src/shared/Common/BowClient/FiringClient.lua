@@ -106,9 +106,15 @@ end
 -- RunService:BindToRenderStep("GetAngle", Enum.RenderPriority.Camera.Value - 1, GetAngle)
 
 local function Fire(cancel: boolean)
+    local Char = Player.Character
+    if not Char then return end
+
+    local HRP = Char:FindFirstChild("HumanoidRootPart")
+    if not HRP then return end
+
     if not cancel then
         local Direction = GetAngle() or Vector3.new(0, 1, 0)
-        FireEvent:FireServer(Direction, Force)
+        FireEvent:FireServer(Direction, Force, HRP.Position)
     end
     
     ChargingUp = false

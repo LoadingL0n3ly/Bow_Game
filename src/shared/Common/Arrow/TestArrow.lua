@@ -10,6 +10,16 @@ local StandardArrow = require(script.Parent)
 
 local RunService = game:GetService("RunService")
 
+local function FindHumanoid(instance: Instance)
+	local parent = instance
+	while parent ~= nil and parent ~= workspace do
+		if parent:FindFirstChild("Humanoid") then
+			return parent:FindFirstChild("Humanoid")
+		end
+		parent = parent.Parent
+	end
+end
+
 local function OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
     if not cast.UserData.Gen.abilityToggle then
          StandardArrow.OnLengthChanged(cast, segmentOrigin, segmentDirection, length, segmentVelocity, cosmeticBulletObject)
@@ -31,11 +41,12 @@ local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, c
     end
 
     if RunService:IsClient() then return end
-    if result.Instance.Parent:FindFirstChild("Humanoid") then
-		local humanoid = result.Instance.Parent:FindFirstChild("Humanoid")
+
+    if FindHumanoid(result.Instance) then
+		local humanoid = FindHumanoid(result.Instance)
 		
-        if result.Instance.Parent:FindFirstChild("Head") then
-            local head = result.Instance.Parent:FindFirstChild("Head")
+        if result.Instance.Name == "Head" then
+            local head = result.Instance
             humanoid:TakeDamage(100)
             head.BrickColor = BrickColor.new("Really red")
         else
@@ -116,6 +127,7 @@ function class.New(Player, Character, Bow)
     local FastCastBehavior = FastCast.newBehavior()
     FastCastBehavior.RaycastParams = RaycastParams.new()
     FastCastBehavior.RaycastParams:AddToFilter(Character:GetDescendants())
+    FastCastBehavior.RaycastParams:AddToFilter(workspace.Arrows:GetDescendants())
     FastCastBehavior.RaycastParams:AddToFilter(Bow:GetDescendants())
     FastCastBehavior.Acceleration = Vector3.new(0, -workspace.Gravity * 0.1, 0)
     FastCastBehavior.CosmeticBulletContainer  = workspace.Arrows

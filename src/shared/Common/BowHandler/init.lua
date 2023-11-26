@@ -43,11 +43,32 @@ end
 
 function class.PlayerAdded(player: Player)
     Ammo.PlayerAdded(player)
-    print(Ammo.GetAbilityArrowToggle(player))
 end
 
 function class.PlayerRemoving(player: Player)
     Ammo.PlayerRemoving(player)
+end
+
+function class.CharacterAdded(character: Model)
+    local HitPart = Instance.new("Part")
+    HitPart.Name = "HitPart"
+    HitPart.Parent = character
+    HitPart.Size = Vector3.new(6, 6, 3)
+    HitPart.Transparency = 1
+    HitPart.CanCollide = false
+    HitPart.Position = character.HumanoidRootPart.Position
+
+    local Highlight: SelectionBox = Instance.new("SelectionBox")
+    Highlight.Adornee = HitPart
+    Highlight.Parent = HitPart
+    Highlight.Color3 = Color3.fromRGB(255, 0, 0)
+    Highlight.LineThickness = 0.02
+
+    local weld = Instance.new("Weld")
+    weld.Parent = HitPart
+    weld.Part0 = HitPart
+    weld.Part1 = character.HumanoidRootPart
+    weld.C0 = CFrame.new(0, 0, 0)
 end
 
 function class.Setup()
