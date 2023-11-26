@@ -38,7 +38,11 @@ Players.PlayerRemoving:Connect(function(player)
     end
 end)
 
-
+-- For NPC Hitboxes
+for _, npc in workspace.Dummies:GetChildren() do
+    BowHandler.CharacterAdded(npc)
+end
 
 -- Setup
 task.spawn(BowHandler.Setup)
+

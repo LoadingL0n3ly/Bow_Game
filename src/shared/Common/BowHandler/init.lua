@@ -49,6 +49,8 @@ function class.PlayerRemoving(player: Player)
     Ammo.PlayerRemoving(player)
 end
 
+
+
 function class.CharacterAdded(character: Model)
     local HitPart = Instance.new("Part")
     HitPart.Name = "HitPart"
@@ -58,11 +60,13 @@ function class.CharacterAdded(character: Model)
     HitPart.CanCollide = false
     HitPart.Position = character.HumanoidRootPart.Position
 
-    local Highlight: SelectionBox = Instance.new("SelectionBox")
-    Highlight.Adornee = HitPart
-    Highlight.Parent = HitPart
-    Highlight.Color3 = Color3.fromRGB(255, 0, 0)
-    Highlight.LineThickness = 0.02
+    if workspace:GetAttribute("Debug") then
+        local Highlight: SelectionBox = Instance.new("SelectionBox")
+        Highlight.Adornee = HitPart
+        Highlight.Parent = HitPart
+        Highlight.Color3 = Color3.fromRGB(255, 0, 0)
+        Highlight.LineThickness = 0
+    end
 
     local weld = Instance.new("Weld")
     weld.Parent = HitPart
