@@ -6,7 +6,7 @@ local RunService = game:GetService("RunService")
 
 -- Modules
 local BowClient = require(Common:WaitForChild("BowClient"))
-local DoubleJump = require(Common:WaitForChild("DoubleJump"))
+-- local DoubleJump = require(Common:WaitForChild("DoubleJump"))
 local Movement = require(Common:WaitForChild("Movement"))
 
 
@@ -28,7 +28,7 @@ Player.CharacterRemoving:Connect(CharacterRemoved)
 -- Setup
 Movement.Setup()
 BowClient.Setup()
-DoubleJump.Setup()
+-- DoubleJump.Setup()
 
 -- Connectiuons
 RunService.RenderStepped:Connect(function(dt: number)

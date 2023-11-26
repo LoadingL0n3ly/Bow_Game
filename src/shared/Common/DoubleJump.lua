@@ -12,8 +12,6 @@ local Humanoid
 local COOLDOWN = 0.1 -- seconds
 
 -- Control Variables
-local TimesClicked = 0
-local theFirstTime = nil
 local lastJump = os.time()
 
 
