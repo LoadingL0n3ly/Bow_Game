@@ -21,7 +21,8 @@ function class.ShiftLock(Active)
 		Humanoid.RootPart.CFrame = Humanoid.RootPart.CFrame:Lerp(CFrame.new(Humanoid.RootPart.Position, Humanoid.RootPart.Position + Vector3.new(workspace.CurrentCamera.CFrame.LookVector.X, 0 , workspace.CurrentCamera.CFrame.LookVector.Z)), 0.3) 
 		game:GetService("RunService"):BindToRenderStep("ShiftLock", Enum.RenderPriority.Camera.Value, function()
 			Humanoid.RootPart.CFrame = Humanoid.RootPart.CFrame:Lerp(CFrame.new(Humanoid.RootPart.Position, Humanoid.RootPart.Position + Vector3.new(workspace.CurrentCamera.CFrame.LookVector.X, 0 , workspace.CurrentCamera.CFrame.LookVector.Z)), 0.3) 
-
+			Humanoid.AutoRotate = false
+			
 			local ZoomMagnitude = (math.abs((workspace.CurrentCamera.CFrame.Position - Character.Head.Position).Magnitude))
 
 			local startCFrame = workspace.CurrentCamera.CFrame

@@ -46,7 +46,7 @@ local Character: Model
 local Humanoid: Humanoid
 local HRP: BasePart
 local SlideForce: VectorForce
-local State = class.MovementStates.Walking
+class.State = class.MovementStates.Walking
 local DesiredSpeed: number = WALK_SPEED
 local SlideVelocity: Vector3
 local SlideOrientation: AlignOrientation
@@ -89,8 +89,8 @@ end
 
 -- Sprinting
 function class.StartSprint()
-    if State == class.MovementStates.Sliding then return end
-    if State == class.MovementStates.Sliding then
+    if class.State == class.MovementStates.Sliding then return end
+    if class.State == class.MovementStates.Sliding then
         class.EndSlide()
     end
 
@@ -101,7 +101,7 @@ function class.StartSprint()
         RunAnimationTrack:Play()
     end
 
-    State = class.MovementStates.Running
+    class.State = class.MovementStates.Running
     class.ChangeDesiredSpeed(SPRINT_SPEED)
 
     for _, v in pairs(SpeedTweens) do
@@ -120,8 +120,8 @@ end
 
 -- Sliding
 function class.StartSlide()
-    if State == class.MovementStates.Sliding then return end
-    if State == class.MovementStates.Running then class.EndSprint() end
+    if class.State == class.MovementStates.Sliding then return end
+    if class.State == class.MovementStates.Running then class.EndSprint() end
 
     if SlideAnimationTrack then
         SlideAnimationTrack:Play()
@@ -145,13 +145,13 @@ function class.StartSlide()
     SlideOrientation.Attachment0 = Attachment
     SlideOrientation.RigidityEnabled = true
     
-    State = class.MovementStates.Sliding
+    class.State = class.MovementStates.Sliding
     SlideVelocity = HRP.AssemblyLinearVelocity
     
     local YMod: number = math.clamp(math.abs(SlideVelocity.Y) * 0.05, 1, 3) 
 
     -- TODO: Implement Ymod Later when Code is more Stable
-    SlideForce.Velocity = Vector3.new(SlideVelocity.X, 0, SlideVelocity.Z)  --* YMod
+    SlideForce.Velocity = Vector3.new(SlideVelocity.X, 0, SlideVelocity.Z) * 1.1  --* YMod
 
     Humanoid.AutoRotate = false
     HRP.CustomPhysicalProperties = PhysicalProperties.new(0.5, 0.5, 0, 0.5, 100)
@@ -163,7 +163,7 @@ end
 
 function class.EndSlide()
     Humanoid.AutoRotate = true
-    State = class.MovementStates.Walking
+    class.State = class.MovementStates.Walking
 
     for _, v in pairs(HRP:GetChildren()) do
         if v.Name == "SlideForce" or v.Name == "SlideAttachment" then
@@ -288,7 +288,7 @@ function class.RenderStepped(dt)
     end
 
     -- Apply
-    if State ~= class.MovementStates.Sliding then return end
+    if class.State ~= class.MovementStates.Sliding then return end
 
     -- Amount to subtract based off time due to friction
     local mult = 1

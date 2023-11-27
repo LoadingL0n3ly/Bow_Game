@@ -77,6 +77,7 @@ local function RayPierced(cast, result: RaycastResult, segmentVelocity: Vector3,
 	cast:SetPosition(position)
 
     if not cosmeticBulletObject then return end
+    
     local emmitter: ParticleEmitter = cosmeticBulletObject:FindFirstChild("Attachment"):FindFirstChildWhichIsA("ParticleEmitter")
     -- if emmitter change the imagecolor to white for a seocnd
     local color = emmitter.Color

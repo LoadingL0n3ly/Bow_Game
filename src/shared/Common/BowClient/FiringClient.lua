@@ -5,13 +5,15 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Common = ReplicatedStorage:WaitForChild("Common")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 local Utils = ReplicatedStorage:WaitForChild("Utils")
 
 local Replication = require(script.Parent.Replication)
-
 local Gizmo = require(Utils.Gizmo)
 Gizmo.Init()
+
+local Movement = require(Common.Movement)
 
 -- Bow Remotes
 local BowRemotes = Remotes:WaitForChild("BowRemotes")
@@ -156,6 +158,12 @@ function class.Equip()
             Cancelled = true
             return
        end
+
+       if Movement.State == Movement.MovementStates.Running then
+            Movement.EndSprint()
+       end
+
+       Player.Character.Humanoid.AutoRotate = false
        
        ChargingUp = true
 
@@ -177,6 +185,8 @@ function class.Equip()
             return
        end
         Fire()
+
+        Player.Character.Humanoid.AutoRotate = true
    end)
 
     MouseConnection["toggle"] = UserInputService.InputBegan:Connect(function(input, gameProcessed)
