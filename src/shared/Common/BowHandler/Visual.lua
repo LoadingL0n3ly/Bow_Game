@@ -11,7 +11,24 @@ function class.VisualEquip(player: Player, bowName: string)
     local Character = player.Character
     local Humanoid = Character.Humanoid
 
-    Humanoid:AddAccessory(BowModel)
+    local RootPart: Part = BowModel:FindFirstChild("Handle")
+    local Grip: Attachment = RootPart:FindFirstChild("Grip")
+
+    -- Weld Grip to RightHand
+    local RightHand = Character:FindFirstChild("RightHand")
+    if not RightHand then return end
+
+    local RightGripAttachment = RightHand:FindFirstChild("RightGripAttachment")
+    if not RightGripAttachment then return end
+
+    local Weld = Instance.new("Weld")
+    Weld.Name = "Weld"
+    Weld.Part0 = RightHand
+    Weld.Part1 = RootPart
+    Weld.C0 = RightGripAttachment.CFrame:Inverse() * Grip.CFrame
+    Weld.Parent = RightHand
+
+    BowModel.Parent = Character
     BowModel.Name = "Bow"
 end
 
