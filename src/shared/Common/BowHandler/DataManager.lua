@@ -14,18 +14,22 @@ function class.GetBowName(player: Player)
     return "Test"
 end
 
+function class.GetArrowName(player: Player)
+    return "Test"
+end
+
 local ArrowModules = Arrow.ArrowModules
 
 function class.GetArrowModule(player: Player)
-    local bowName = class.GetBowName(player)
+    local arrowName = class.GetArrowName(player)
 
-    local module = require(ArrowModules[bowName])
+    local module = require(ArrowModules[arrowName])
     if not module then
-        error("No module found for bow: " .. bowName)
+        error("No module found for bow: " .. arrowName)
         return
     end
 
-    return module, bowName
+    return module, arrowName
 end
 
 return class

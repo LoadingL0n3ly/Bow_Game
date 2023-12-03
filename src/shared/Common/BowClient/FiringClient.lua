@@ -43,12 +43,15 @@ local Interval = 0.05 -- How often the force is added to the arrow
 local ResetFOV = TweenService:Create(workspace.CurrentCamera, TweenInfo.new(0.9, Enum.EasingStyle.Exponential), {FieldOfView = 70})
 local ResetCrosshair = TweenService:Create(Crosshair, TweenInfo.new(0.9, Enum.EasingStyle.Exponential), {Size = OriginalCrosshairSize})
 
-
 -- Vars
+local initial_pos: Vector3 = nil
+
 local ChargingUp = false
 local Force = 0 
 local FOVZoom: Tween = nil
 local CrosshairZoom: Tween = nil
+local StringTween: Tween = nil
+local ReturnStringTween: Tween = nil
 
 -- Functions
 local function Charging()
@@ -111,6 +114,15 @@ local function Fire(cancel: boolean)
     local Char = Player.Character
     if not Char then return end
 
+    local Bow = Char:FindFirstChild("Bow")
+    if not Bow then return end
+
+    local Handle = Bow:FindFirstChild("Handle")
+    if not Handle then return end
+
+    local StringPos = Handle:FindFirstChild("StringPos")
+    if not StringPos then warn("no stringpos attachment") return end
+
     local HRP = Char:FindFirstChild("HumanoidRootPart")
     if not HRP then return end
 
@@ -122,6 +134,10 @@ local function Fire(cancel: boolean)
     ChargingUp = false
     if FOVZoom then FOVZoom:Cancel() end
     if CrosshairZoom then CrosshairZoom:Cancel() end
+    if StringTween then StringTween:Cancel() end
+
+    ReturnStringTween = TweenService:Create(StringPos, TweenInfo.new(0.9, Enum.EasingStyle.Exponential), {CFrame = CFrame.new(0, 0, -1.1139948921203613)})
+    ReturnStringTween:Play()
 
     ResetFOV:Play()
     ResetCrosshair:Play()
@@ -153,6 +169,18 @@ function class.Equip()
    ArrowType.Visible = true
    
    MouseConnection["down"] = Mouse.Button1Down:Connect(function()
+       local Character = Player.Character
+       if not Character then return end
+
+       local Bow = Character:FindFirstChild("Bow")
+       if not Bow then return end
+
+       local Handle = Bow:FindFirstChild("Handle")
+       if not Handle then return end
+
+       local StringPos = Handle:FindFirstChild("StringPos")
+       if not StringPos then warn("no stringpos attachment") return end
+
        local CanFire = (AbilityArrowToggleVar and AbilityArrowCountVar > 0) or (not AbilityArrowToggleVar)
        if not CanFire then
             Cancelled = true
@@ -173,6 +201,9 @@ function class.Equip()
 
        CrosshairZoom = TweenService:Create(Crosshair, TweenInfo.new(RemTime, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.fromScale(OriginalCrosshairSize.X.Scale * 0.6, OriginalCrosshairSize.Y.Scale * 0.6)})
        CrosshairZoom:Play()
+
+       StringTween = TweenService:Create(StringPos, TweenInfo.new(RemTime, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {CFrame = CFrame.new(0, 0, -2.229)})
+       StringTween:Play()
 
        while ChargingUp and Force < MaxForce do
            Charging()

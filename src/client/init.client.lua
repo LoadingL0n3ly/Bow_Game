@@ -58,12 +58,12 @@ local function Added(descendant: Instance)
 
         local function UpdateAnimation()
             local pullCFrame = StringPull.CFrame
-            StringPull.CFrame = CFrame.new(Vector3.new(pullCFrame.Position.X, pullCFrame.Position.Y, math.clamp(pullCFrame.Position.Z, -2, -1.1139948921203613)))
+            --StringPull.CFrame = CFrame.new(Vector3.new(pullCFrame.Position.X, pullCFrame.Position.Y, math.clamp(pullCFrame.Position.Z, -2.2, Dist)))
 
             local Z = pullCFrame.Position.Z + 1.116
 
             local timePos = math.clamp((Z/Dist), 0, 1) * AnimationTrack.Length
-            print(timePos)
+            --print(math.clamp((Z/Dist), 0, 1), pullCFrame.Position.Z)
             AnimationTrack.TimePosition = timePos
         end
 
