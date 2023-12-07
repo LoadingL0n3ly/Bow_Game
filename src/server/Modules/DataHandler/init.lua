@@ -1,19 +1,23 @@
--- ORIGINAL CODE WRITTEN BY ALREADPRO, JUST ADAPTING IT HERE FOR TESTING
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 local ServerScriptService = game:GetService("ServerScriptService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
 local Utils = ServerScriptService.Utils
 local ProfileService = require(Utils.ProfileService)
+local GetProfileEvent: RemoteFunction = Remotes.GetProfile -- Client Fetch Event
+
+local ProfileLoaded = Instance.new("BindableEvent")
+ProfileLoaded.Name = "ProfileLoaded"
+ProfileLoaded.Parent = script
 
 local DataService = {
     DATA_VERSION = workspace:GetAttribute("Version"), -- `PlayerData_DEV_V0`,
     Profiles = {},
     BoundToRelease = {},
 
-    ProfileLoaded = script.ProfileLoaded,
+    ProfileLoaded = ProfileLoaded,
 }
 
 function DataService:GetProfile(player: Player)
@@ -105,6 +109,10 @@ function DataService:Init()
 
     Players.PlayerAdded:Connect(PlayerAdded)
 	Players.PlayerRemoving:Connect(PlayerRemoving)
+
+    GetProfileEvent.OnServerInvoke = function(player: Player)
+        return self:GetProfile(player).Data
+    end
 end
 
 return DataService

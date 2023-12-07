@@ -239,7 +239,7 @@ function class.Unequip()
     AbilityArrowCount.Visible = false
     ArrowType.Visible = false
     Fire(true)
-    
+
     for _, Connection in pairs(MouseConnection) do
         Connection:Disconnect()
     end
