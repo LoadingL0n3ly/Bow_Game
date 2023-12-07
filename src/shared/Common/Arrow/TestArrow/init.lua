@@ -7,8 +7,14 @@ local Rutils = ReplicatedStorage.Utils
 local FastCast = require(Rutils:WaitForChild("FastCastRedux"))
 FastCast.VisualizeCasts = false
 local StandardArrow = require(script.Parent)
+local Players = game:GetService("Players")
 
 local RunService = game:GetService("RunService")
+local ServerScriptService = game:GetService("ServerScriptService")
+local LeaderboardHandler: ModuleScript 
+if RunService:IsServer() then
+    LeaderboardHandler = require(ServerScriptService:WaitForChild("Modules"):WaitForChild("LeaderboardHandler"))
+end
 
 local function FindHumanoid(instance: Instance)
 	local parent = instance
@@ -44,13 +50,16 @@ local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, c
 
     if FindHumanoid(result.Instance) then
 		local humanoid = FindHumanoid(result.Instance)
-		
+
+
         if result.Instance.Name == "Head" then
             local head = result.Instance
             humanoid:TakeDamage(100)
             head.BrickColor = BrickColor.new("Really red")
+            LeaderboardHandler.DamageDoneToPlayer(cast.UserData.Gen.player, Players:GetPlayerFromCharacter(humanoid.Parent) or {Name = "NPC"}, 100, true, "Regular Arrow")
         else
             humanoid:TakeDamage(25)
+            LeaderboardHandler.DamageDoneToPlayer(cast.UserData.Gen.player, Players:GetPlayerFromCharacter(humanoid.Parent) or {Name = "NPC"}, 25, humanoid.Health <= 0, "Bounce Arrow")
         end
 	end
 end

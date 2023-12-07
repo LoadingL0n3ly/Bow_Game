@@ -8,7 +8,7 @@ local RunService = game:GetService("RunService")
 local BowClient = require(Common:WaitForChild("BowClient"))
 -- local DoubleJump = require(Common:WaitForChild("DoubleJump"))
 local Movement = require(Common:WaitForChild("Movement"))
-
+local ChatClient = require(Common:WaitForChild("ChatClient"))
 
 local function CharacterAdded(char: Model)
     Movement.CharacterAdded(char)

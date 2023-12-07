@@ -5,21 +5,13 @@ local Players = game:GetService("Players")
 
 
 local ProfileService = require(Modules.ProfileService)
-local Knit = require(Packages.Knit)
 
-local Signal = require(Packages.Signal)
+
 
 local DataService = {
 	DATA_VERSION = script:GetAttribute("Version"), -- `PlayerData_DEV_V0`,
 	Profiles = {},
 	BoundToRelease = {},
-	
-	ProfileLoaded = Signal.new(),
-	
-	Client = {
-		HasProfileLoaded  = Knit.CreateProperty(false),
-		ProfileLoaded = Knit.CreateSignal(),
-	},
 }
 
 function DataService:GetProfile(player: Player)
@@ -84,6 +76,7 @@ function DataService:KnitInit()
 
 			return
 		end
+
 
 		profile:AddUserId(userId)
 		profile:Reconcile()

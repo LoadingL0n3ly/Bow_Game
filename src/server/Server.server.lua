@@ -6,14 +6,22 @@ local Modules = ServerScriptService:WaitForChild("Modules")
 local Common = ReplicatedStorage:WaitForChild("Common")
 
 -- Modules
+local DataHandler = require(Modules:WaitForChild("DataHandler"))
 local BowHandler = require(Common:WaitForChild("BowHandler"))
 local BannerNotif = require(Common.BannerNotif)
+local ChatHandler = require(Modules:WaitForChild("ChatHandler"))
+local LeaderboardHandler = require(Modules:WaitForChild("LeaderboardHandler"))
 
 -- Player Connection Tables
 local PlayerConnections = {}
 
+
+-- Data Setup
+DataHandler:Init()
+
 -- Connections
 local function PlayerAdded(player: Player)
+    ChatHandler.playerJoined(player.Name)
     PlayerConnections[player] = {}
     
     BowHandler.PlayerAdded(player)
@@ -30,6 +38,7 @@ end
 Players.PlayerAdded:Connect(PlayerAdded)
 
 Players.PlayerRemoving:Connect(function(player)
+    ChatHandler.playerLeft(player.Name)
     BowHandler.PlayerRemoving(player)
 
     for index, connection in pairs(PlayerConnections[player]) do
