@@ -70,11 +70,11 @@ function class.Equip(player: Player)
 
     -- Caster Setup
     
-    local Module, bowName = DataManager.GetArrowModule(player)
+    local Module, arrowName = DataManager.GetArrowModule(player)
     local Caster, FastCastBehavior = Module.New(player, Character, Bow)
     CastData[player] = {["Caster"] = Caster, ["FastCastBehavior"] = FastCastBehavior}
 
-    NewPlayerCasterEvent:FireAllClients(player, bowName)
+    NewPlayerCasterEvent:FireAllClients(player, arrowName)
 end
 
 function class.Unequip(player: Player)

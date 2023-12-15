@@ -37,12 +37,9 @@ BowPullAnimation.AnimationId = "rbxassetid://15518187062"
 
 local function Added(descendant: Instance)
     if descendant:HasTag("StringPull") and descendant.Parent.Name == "Handle" then
-        warn("Found StringPull")
         local Handle: Part = descendant.Parent
         local Bow: Model = Handle.Parent
         local StringPull: Attachment = descendant
-
-        print(Bow)
 
         local AnimationController: AnimationController = Bow:FindFirstChildOfClass("AnimationController")
         if not AnimationController then warn("no animation controller") return end

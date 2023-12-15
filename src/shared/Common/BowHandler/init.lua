@@ -6,6 +6,7 @@ local ServerScriptService = game:GetService("ServerScriptService")
 local Modules = script.Parent
 local Common = ReplicatedStorage:WaitForChild("Common")
 local Remotes = ReplicatedStorage:WaitForChild("Remotes")
+local DataManager = require(script.DataManager)
 
 local BowRemotes = Remotes:WaitForChild("BowRemotes")
 local EquipBowEvent: RemoteFunction = BowRemotes:WaitForChild("EquipBow")
@@ -17,9 +18,8 @@ local Visual = require(script.Visual)
 local Projectile = require(script.Projectile)
 local Ammo = require(script.Ammo)
 
--- Fun Functions!
 local function Equip(player: Player)
-    print(`Recieved Equip Request from {player.Name}`)
+    --print(`Recieved Equip Request from {player.Name}`)
 
     -- Setup
     local Character = player.Character
@@ -27,14 +27,15 @@ local function Equip(player: Player)
 
     local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
     if not Humanoid then return end
+    
 
-    Visual.VisualEquip(player, "Test")
+    Visual.VisualEquip(player, DataManager.GetBowName(player))
     Projectile.Equip(player)
     return true
 end
 
 local function Unequip(player: Player)
-    print(`Recieved UnEquip Request from {player.Name}`)
+    --print(`Recieved UnEquip Request from {player.Name}`)
 
     Projectile.Unequip(player)
     Visual.VisualUnequip(player)

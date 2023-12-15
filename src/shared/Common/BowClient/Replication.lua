@@ -20,9 +20,10 @@ local RemovePlayerCasterEvent: RemoteEvent = Replication:WaitForChild("RemovePla
 local FireVisualProjectileEvent: RemoteEvent = Replication:WaitForChild("FireVisualProjectile")
 
 
-local function NewPlayerCaster(player: Player, ModuleName: string)
-    local ArrowModule = require(Arrow.ArrowModules[ModuleName])
+local function NewPlayerCaster(player: Player, arrowName: string)
+    local ArrowModule = require(Arrow.ArrowModules[arrowName])
     if not ArrowModule then warn("Arrow module isn't passed!") return end
+    
     local Caster, FastCastBehavior = ArrowModule.New(player, player.Character, player.Character:FindFirstChild("Bow"))
     CastData[player] = {["Caster"] = Caster, ["FastCastBehavior"] = FastCastBehavior}
 end
