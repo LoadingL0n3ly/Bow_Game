@@ -20,16 +20,16 @@ function class.GetBowName(player: Player)
     local profile = DataHandler:GetProfile(player)
     if not profile then return end
 
-    assert(profile.Data.EquippedBow, "No bow equipped!")
-    return profile.Data.EquippedBow
+    assert(profile.Data.ActiveBow, "No bow equipped!")
+    return profile.Data.ActiveBow
 end
 
 function class.GetArrowName(player: Player)
     local profile = DataHandler:GetProfile(player)
     if not profile then return end
 
-    assert(profile.Data.EquippedArrow, "No arrow equipped!")
-    return profile.Data.EquippedArrow
+    assert(profile.Data.ActiveArrow, "No arrow equipped!")
+    return profile.Data.ActiveArrow
 end
 
 local ArrowModules = Arrow.ArrowModules

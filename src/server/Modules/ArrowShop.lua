@@ -14,7 +14,6 @@ local DataHandler = require(Modules.DataHandler)
 local ArrowData = require(Database.ArrowData)
 
 
--- Player purchasing/getting arrow
 function class.EquipArrow(player: Player, arrowName: string)
     local profile = DataHandler:GetProfile(player)
     if not profile then return end
@@ -24,10 +23,11 @@ function class.EquipArrow(player: Player, arrowName: string)
         return 
     end
 
-    profile.Data.EquippedArrow = arrowName
+    profile.Data.ActiveArrow = arrowName
 end
 
 
+-- Player purchasing/getting arrow
 function class.AddArrow(player: Player, arrowName: string)
     local profile = DataHandler:GetProfile(player)
     if not profile then return end

@@ -1,27 +1,4 @@
---!strict
-
-type ProfileTemplate = {
-	Stats: {
-		Kills: number,
-	},
-
-	EquippedBow: string,
-	EquippedArrow: string,
-
-	Inventory: {
-		Bows: {
-			[string]: {
-				Level: number,
-			}
-		},
-
-		Arrows: {
-			[string]: boolean,
-		},
-	}
-}
-
-local ProfileTemplate: ProfileTemplate = {
+local ProfileTemplate = {
 	Stats = {
 		Kills = 0,
 	},
@@ -30,13 +7,11 @@ local ProfileTemplate: ProfileTemplate = {
 		Gold = 0,
 	},
 
-	EquippedBow = "Test",
-	EquippedArrow = "Test",
+	ActiveBow = "Test",
+	ActiveArrow = "Test",
 
 	Inventory = {
-		Bows = {
-			Test = true
-		},
+		Bows = {"Test"},
 
 		Arrows = {
 			Test = {
