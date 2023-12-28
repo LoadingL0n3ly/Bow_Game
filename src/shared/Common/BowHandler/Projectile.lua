@@ -27,6 +27,7 @@ local FastCast = require(Rutils:WaitForChild("FastCastRedux"))
 local AssetHandler = require(script.Parent.AssetHandler)
 local DataManager = require(script.Parent.DataManager)
 
+
 local CastData = {}
 
 -- VARIABLES THAT WILL BE UPDATED BY BOW STATS
@@ -55,9 +56,12 @@ function class.Fire(player: Player, direction: Vector3, force: number, playerPos
         math.clamp(force, 0, MaxForce) * 25,
         FastCastData.FastCastBehavior
     )
-    cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityArrowToggle(player)}}
 
-    FireVisualProjectileEvent:FireAllClients(player, Bow.Handle.Position, direction, math.clamp(force, 0, MaxForce) * 25, AssetHandler.GetArrow(player), Ammo.GetAbilityArrowToggle(player))
+    local ArrowUpgradeLevel = DataManager.GetArrowUpgradeLevel(player)
+    cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityArrowToggle(player), Level = ArrowUpgradeLevel}}
+    print(`Server | Fired Arrow with Level {ArrowUpgradeLevel}`)
+
+    FireVisualProjectileEvent:FireAllClients(player, Bow.Handle.Position, direction, math.clamp(force, 0, MaxForce) * 25, AssetHandler.GetArrow(player), Ammo.GetAbilityArrowToggle(player), ArrowUpgradeLevel)
 end
 
 

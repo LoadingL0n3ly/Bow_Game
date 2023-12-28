@@ -33,7 +33,7 @@ local function RemovePlayerCaster(player: Player)
     CastData[player] = nil
 end
 
-local function FireVisualProjectile(player:Player, position: Vector3, direction: Vector3, force: number, CosmeticBullet: Instance, abilityToggle: boolean)
+local function FireVisualProjectile(player:Player, position: Vector3, direction: Vector3, force: number, CosmeticBullet: Instance, abilityToggle: boolean, ArrowUpgradeLevel: number)
     if not CastData[player] then return end
 
     local Caster = CastData[player].Caster
@@ -47,7 +47,8 @@ local function FireVisualProjectile(player:Player, position: Vector3, direction:
         Behavior
     )
 
-    cast.UserData =  {Gen = {player = player, abilityToggle = abilityToggle}}
+    cast.UserData =  {Gen = {player = player, abilityToggle = abilityToggle, Level = ArrowUpgradeLevel}}
+    print(`Client| Fired Arrow with Level {ArrowUpgradeLevel}`)
 end
 
 function class.Setup()

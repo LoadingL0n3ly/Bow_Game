@@ -12,6 +12,6 @@ return  {
 
         Name = "Test Arrow",
         Description = "Test Arrow Description",
-        Module = ArrowStorage.Test,
+        Module = ArrowStorage.TestArrow,
     }
 }

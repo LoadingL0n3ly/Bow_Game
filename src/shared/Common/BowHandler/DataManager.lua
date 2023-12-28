@@ -32,6 +32,18 @@ function class.GetArrowName(player: Player)
     return profile.Data.ActiveArrow
 end
 
+function class.GetArrowUpgradeLevel(player: Player)
+    local ActiveArrow = class.GetArrowName(player)
+
+    local profile = DataHandler:GetProfile(player)
+    if not profile then return end
+
+    local arrowData = profile.Data.Inventory.Arrows[ActiveArrow]
+    if not arrowData then warn(`no arrow titled {ActiveArrow} found in data`) return end
+
+    return arrowData.Level
+end
+
 local ArrowModules = Arrow.ArrowModules
 
 function class.GetArrowModule(player: Player)

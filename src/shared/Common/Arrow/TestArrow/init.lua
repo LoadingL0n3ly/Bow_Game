@@ -16,6 +16,9 @@ if RunService:IsServer() then
     LeaderboardHandler = require(ServerScriptService:WaitForChild("Modules"):WaitForChild("LeaderboardHandler"))
 end
 
+-- Upgrade Stats
+local UpgradeStats = require(script.Upgrades)
+
 local function FindHumanoid(instance: Instance)
 	local parent = instance
 	while parent ~= nil and parent ~= workspace do
@@ -47,6 +50,9 @@ local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, c
     end
 
     if RunService:IsClient() then return end
+
+    local CurrentArrowLevelData = UpgradeStats[cast.UserData.Gen.Level]
+    print(CurrentArrowLevelData)
 
     if FindHumanoid(result.Instance) then
 		local humanoid = FindHumanoid(result.Instance)

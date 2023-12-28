@@ -80,3 +80,19 @@ end)
 RunService.RenderStepped:Connect(function(dt: number)
     Movement.RenderStepped(dt)
 end)
+
+
+-- local remotes = ReplicatedStorage.Remotes
+-- local data = remotes.GetProfile:InvokeServer(Player)
+
+-- print("Client Arrows:")
+-- for name, arrow in pairs(data.Inventory.Arrows) do
+--     print(name)
+-- end
+-- print("---------")
+
+-- print("Client Bows:")
+-- for index, bow in pairs(data.Inventory.Bows) do
+--     print(bow)
+-- end
+-- print("---------")
