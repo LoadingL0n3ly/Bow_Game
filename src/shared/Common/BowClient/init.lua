@@ -67,6 +67,12 @@ function class.Setup()
     end)
 
     Replication.Setup()
+
+    Player.CharacterRemoving:Connect(function()
+        if Equipped then
+            class.Unequip()
+        end
+    end)
 end
 
 

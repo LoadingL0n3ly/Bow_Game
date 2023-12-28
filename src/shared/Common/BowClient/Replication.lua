@@ -20,6 +20,7 @@ local RemovePlayerCasterEvent: RemoteEvent = Replication:WaitForChild("RemovePla
 local FireVisualProjectileEvent: RemoteEvent = Replication:WaitForChild("FireVisualProjectile")
 
 
+
 local function NewPlayerCaster(player: Player, arrowName: string)
     local ArrowModule = require(Arrow.ArrowModules[arrowName])
     if not ArrowModule then warn("Arrow module isn't passed!") return end
@@ -48,7 +49,7 @@ local function FireVisualProjectile(player:Player, position: Vector3, direction:
     )
 
     cast.UserData =  {Gen = {player = player, abilityToggle = abilityToggle, Level = ArrowUpgradeLevel}}
-    print(`Client| Fired Arrow with Level {ArrowUpgradeLevel}`)
+    _G.dprint(`Client| Fired Arrow with Level {ArrowUpgradeLevel}`)
 end
 
 function class.Setup()

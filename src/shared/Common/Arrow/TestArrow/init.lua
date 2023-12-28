@@ -52,7 +52,7 @@ local function OnRayHit(cast, result: RaycastResult, segmentVelocity: Vector3, c
     if RunService:IsClient() then return end
 
     local CurrentArrowLevelData = UpgradeStats[cast.UserData.Gen.Level]
-    print(CurrentArrowLevelData)
+    _G.dprint(CurrentArrowLevelData)
 
     if FindHumanoid(result.Instance) then
 		local humanoid = FindHumanoid(result.Instance)

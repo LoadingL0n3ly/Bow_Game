@@ -15,6 +15,11 @@ local LeaderboardHandler = require(Modules:WaitForChild("LeaderboardHandler"))
 -- Player Connection Tables
 local PlayerConnections = {}
 
+-- Print Debug
+function _G.dprint(text: string)
+    if not workspace:GetAttribute("Debug") then return end
+    print(text)
+end
 
 -- Data Setup
 DataHandler:Init()

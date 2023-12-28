@@ -10,6 +10,13 @@ local BowClient = require(Common:WaitForChild("BowClient"))
 local Movement = require(Common:WaitForChild("Movement"))
 local ChatClient = require(Common:WaitForChild("ChatClient"))
 
+-- Print Debug
+function _G.dprint(text: string)
+    if not workspace:GetAttribute("Debug") then return end
+    print(text)
+end
+
+
 local function CharacterAdded(char: Model)
     Movement.CharacterAdded(char)
 end

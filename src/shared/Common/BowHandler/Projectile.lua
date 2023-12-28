@@ -59,7 +59,7 @@ function class.Fire(player: Player, direction: Vector3, force: number, playerPos
 
     local ArrowUpgradeLevel = DataManager.GetArrowUpgradeLevel(player)
     cast.UserData = {Gen = {player = player, abilityToggle = Ammo.GetAbilityArrowToggle(player), Level = ArrowUpgradeLevel}}
-    print(`Server | Fired Arrow with Level {ArrowUpgradeLevel}`)
+    _G.dprint(`Server | Fired Arrow with Level {ArrowUpgradeLevel}`)
 
     FireVisualProjectileEvent:FireAllClients(player, Bow.Handle.Position, direction, math.clamp(force, 0, MaxForce) * 25, AssetHandler.GetArrow(player), Ammo.GetAbilityArrowToggle(player), ArrowUpgradeLevel)
 end
