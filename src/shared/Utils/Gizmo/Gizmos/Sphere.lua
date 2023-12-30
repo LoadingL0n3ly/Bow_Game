@@ -23,7 +23,7 @@ end
 --- @param Radius number
 --- @param Subdivisions number
 --- @param Angle number
-function Gizmo:Draw(Transform: CFrame, Radius: number, Subdivisions: number, Angle: number)
+function Gizmo:Draw(Transform: CFrame, Radius: number, Subdivisions: number, Angle: number)	
 	local Ceive = self.Ceive
 
 	if not Ceive.Enabled then

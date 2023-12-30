@@ -24,6 +24,8 @@ end
 --- @param Length number
 --- @param Subdivisions number
 function Gizmo:Draw(Origin: Vector3, End: Vector3, Radius: number, Length: number, Subdivisions: number)
+	
+
 	local Ceive = self.Ceive
 
 	if not Ceive.Enabled then

@@ -11,6 +11,7 @@ local BowHandler = require(Common:WaitForChild("BowHandler"))
 local BannerNotif = require(Common.BannerNotif)
 local ChatHandler = require(Modules:WaitForChild("ChatHandler"))
 local LeaderboardHandler = require(Modules:WaitForChild("LeaderboardHandler"))
+local ArrowShop = require(Modules:WaitForChild("ArrowShop"))
 
 -- Player Connection Tables
 local PlayerConnections = {}
@@ -58,5 +59,6 @@ for _, npc in workspace.Dummies:GetChildren() do
 end
 
 -- Setup
+ArrowShop.Setup()
 task.spawn(BowHandler.Setup)
 

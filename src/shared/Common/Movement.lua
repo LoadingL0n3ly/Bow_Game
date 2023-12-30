@@ -249,9 +249,10 @@ function class.RenderStepped(dt)
     local Params = RaycastParams.new()
     Params.FilterType = Enum.RaycastFilterType.Blacklist
     Params.FilterDescendantsInstances = {Character}
-    local Raycast = workspace:Raycast(HRP.Position, Vector3.new(0, -4, 0), Params)
+    local Raycast = workspace:Raycast(HRP.Position, Vector3.new(0, -8, 0), Params)
 
-    if Raycast then
+
+    if Humanoid.FloorMaterial ~= Enum.Material.Air then
         Grounded = true
     else
         Grounded = false

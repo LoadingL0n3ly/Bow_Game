@@ -23,7 +23,7 @@ local FiringClient = require(script:WaitForChild("FiringClient"))
 local EQUIP_KEY = Enum.KeyCode.E
 
 -- CORE VARIABLES 
-local Equipped = false
+class.Equipped = false
 local Can_Equip = true -- make this depend on game condition
 
 -- Functions
@@ -40,7 +40,7 @@ function class.Equip()
 
     Shiftlock.ShiftLock(true)
     FiringClient.Equip()
-    Equipped = true
+    class.Equipped = true
 end
 
 function class.Unequip()
@@ -50,7 +50,7 @@ function class.Unequip()
 
     Shiftlock.ShiftLock(false)
     FiringClient.Unequip()
-    Equipped = false
+    class.Equipped = false
 end
 
 -- Setup Code
@@ -59,7 +59,7 @@ function class.Setup()
         if GameProcessed then return end
         if Input.KeyCode ~= EQUIP_KEY then return end
 
-        if Equipped then
+        if class.Equipped then
             class.Unequip()     
         elseif Can_Equip then
             class.Equip()
@@ -69,7 +69,7 @@ function class.Setup()
     Replication.Setup()
 
     Player.CharacterRemoving:Connect(function()
-        if Equipped then
+        if class.Equipped then
             class.Unequip()
         end
     end)

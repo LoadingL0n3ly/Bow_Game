@@ -9,6 +9,11 @@ local Common = ReplicatedStorage.Common
 local Remotes = ReplicatedStorage.Remotes
 local Database = ReplicatedStorage.Database
 
+-- Remotes
+local ArrowShopRemotes: Folder = Remotes:WaitForChild("ArrowShop")
+local EquipArrowEvent: RemoteFunction = ArrowShopRemotes:WaitForChild("EquipArrow")
+local PurchaseArrowEvent: RemoteFunction = ArrowShopRemotes:WaitForChild("PurchaseArrow")
+
 -- Modules
 local DataHandler = require(Modules.DataHandler)
 local ArrowData = require(Database.ArrowData)
@@ -24,6 +29,7 @@ function class.EquipArrow(player: Player, arrowName: string)
     end
 
     profile.Data.ActiveArrow = arrowName
+    return true
 end
 
 
@@ -55,9 +61,13 @@ function class.PurchaseArrow(player: Player, arrowName: string)
     profile.Data.Currency.Gold -= R_Data.Purchase.Price
     print(`{player.Name} purchased {arrowName} for {R_Data.Purchase.Price} gold`)
     class.AddArrow(player, arrowName)
+    return true
 end
 
-
+function class.Setup()
+    EquipArrowEvent.OnServerInvoke = class.EquipArrow
+    PurchaseArrowEvent.OnServerInvoke = class.PurchaseArrow
+end
 
 
 
